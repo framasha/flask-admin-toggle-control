@@ -1,6 +1,8 @@
-from wtforms.widgets import HTMLString, html_params
+# from wtforms.widgets import HTMLString, html_params
+from markupsafe import Markup
 from flask_admin.model.widgets import XEditableWidget
-from jinja2 import escape
+# from jinja2 import escape
+from markupsafe import escape
 
 
 class ToggleInlineWidget(XEditableWidget):
@@ -23,7 +25,7 @@ class ToggleInlineWidget(XEditableWidget):
             kwargs['data-role'] = 'toggle-control'
             kwargs['href'] = "#"
             kwargs.update(self._additional_kw)
-            return HTMLString(
+            return Markup(
                 "<a {}>{}</a>".format(html_params(**kwargs), escape(display_value))
             )
         return super(ToggleInlineWidget, self).__call__(field, **kwargs)
